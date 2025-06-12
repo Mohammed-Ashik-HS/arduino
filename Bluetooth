@@ -1,0 +1,79 @@
+Bluetooth
+
+#include <SoftwareSerial.h> 
+
+#define LED_pin 13
+
+SoftwareSerial bluetooth(2, 3); // RX, TX
+
+float data=25.98; 
+
+char charArray[10]; 
+
+void setup()
+
+{
+
+Serial.begin(9600); // Initialize the serial monitor 
+
+bluetooth.begin(9600); // Initialize the Bluetooth communication 
+
+pinMode(LED_pin,OUTPUT);
+
+}
+
+void loop()
+
+{
+
+if (bluetooth.available()) // Check if data is available from Bluetooth module
+
+{
+
+char receivedChar = bluetooth.read(); // Read the character received
+
+via
+
+Serial.print("Received: "); Bluetooth
+
+Serial.println(receivedChar); // Example: Send a response back to the Bluetooth
+
+if (receivedChar == '1')
+
+module
+
+{
+
+digitalWrite(LED_pin,
+
+HIGH); 
+
+Serial.print("LED_ON");
+
+}
+
+else if(receivedChar == '0')
+
+{
+
+digitalWrite(LED_pin, LOW); 
+
+Serial.print("LED_OFF");
+
+}
+
+else if(receivedChar == '2')
+
+{
+
+dtostrf(data, 6, 2, charArray); // float to char conversion
+
+bluetooth.write(charArray); 
+
+delay(100);
+
+}
+
+}
+
+}
